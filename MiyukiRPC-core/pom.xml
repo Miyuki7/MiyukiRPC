@@ -24,7 +24,12 @@
         <kryo.version>3.0.3</kryo.version>
     </properties>
     <dependencies>
-
+        <!-- lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.8</version>
+        </dependency>
         <dependency>
             <groupId>com.miyuki</groupId>
             <artifactId>MiyukiRPC-interface</artifactId>
