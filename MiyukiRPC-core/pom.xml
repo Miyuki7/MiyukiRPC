@@ -23,8 +23,19 @@
         <hessian.version>4.0.62</hessian.version>
         <kryo.version>3.0.3</kryo.version>
         <protostuff.version>1.7.2</protostuff.version>
+        <spring.version>5.2.7.RELEASE</spring.version>
     </properties>
     <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.curator</groupId>
+            <artifactId>curator-recipes</artifactId>
+            <version>4.2.0</version>
+        </dependency>
         <!-- lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>

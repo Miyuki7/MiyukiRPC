@@ -1,4 +1,4 @@
-package com.miyuki.mrpc.core.transport.codec;
+package com.miyuki.mrpc.core.remoting.transport.netty.codec;
 
 import com.miyuki.mrpc.core.common.enums.CompressTypeEnum;
 import com.miyuki.mrpc.core.common.enums.RpcErrorMessageEnum;
@@ -14,10 +14,7 @@ import com.miyuki.mrpc.core.remoting.dto.RpcResponse;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
-import io.protostuff.Rpc;
 import lombok.extern.slf4j.Slf4j;
-
-import java.io.ByteArrayOutputStream;
 
 /**
  * Created with IntelliJ IDEA.
@@ -82,6 +79,7 @@ public class RpcDecoder extends LengthFieldBasedFrameDecoder {
         int requestId = in.readInt();
         RpcProtocol protocol = RpcProtocol.builder()
                 .codec(codecType)
+                .compress(compressType)
                 .requestId(requestId)
                 .messageType(messageType).build();
         if (messageType == RpcConstants.HEARTBEAT_REQUEST_TYPE) {
@@ -90,6 +88,7 @@ public class RpcDecoder extends LengthFieldBasedFrameDecoder {
         }
         if (messageType == RpcConstants.HEARTBEAT_RESPONSE_TYPE) {
             protocol.setData(RpcConstants.PONG);
+            return protocol;
         }
         int bodyLength = fullLength - RpcConstants.HEAD_LENGTH;
         if (bodyLength > 0) {

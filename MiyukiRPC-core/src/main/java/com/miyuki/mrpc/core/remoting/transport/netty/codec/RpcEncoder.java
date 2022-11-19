@@ -1,4 +1,4 @@
-package com.miyuki.mrpc.core.transport.codec;
+package com.miyuki.mrpc.core.remoting.transport.netty.codec;
 
 import com.miyuki.mrpc.core.common.enums.CompressTypeEnum;
 import com.miyuki.mrpc.core.common.enums.SerializationTypeEnum;
