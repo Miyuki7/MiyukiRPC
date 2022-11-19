@@ -1,5 +1,6 @@
-package com.miyuki.mrpc.core.common;
+package com.miyuki.mrpc.core.remoting.dto;
 
+import com.miyuki.mrpc.core.common.enums.RpcResponseCodeEnum;
 import lombok.*;
 
 /**
@@ -22,7 +23,7 @@ public class RpcResponse<T> {
     private String message;
     private T data;
 
-    public static <T> RpcResponse<T> success(T data, String requestId){
+    public static <T> RpcResponse<T> success(T data, String requestId) {
         RpcResponse<T> response = (RpcResponse<T>) RpcResponse.builder()
                 .code(RpcResponseCodeEnum.SUCCESS.getCode())
                 .message(RpcResponseCodeEnum.SUCCESS.getMsg())
@@ -32,10 +33,11 @@ public class RpcResponse<T> {
         return response;
     }
 
-    public static <T> RpcResponse<T> fail(RpcResponseCodeEnum rpcResponseCodeEnum){
+    public static <T> RpcResponse<T> fail(RpcResponseCodeEnum rpcResponseCodeEnum) {
         RpcResponse<T> response = (RpcResponse<T>) RpcResponse.builder()
                 .code(RpcResponseCodeEnum.FAIL.getCode())
                 .message(RpcResponseCodeEnum.FAIL.getMsg())
                 .build();
         return response;
     }
+}

@@ -1,12 +1,6 @@
-package com.miyuki.mrpc.core.common;
+package com.miyuki.mrpc.core.remoting.dto;
 
 import lombok.*;
-
-import java.io.Serializable;
-import java.util.Arrays;
-import java.util.PriorityQueue;
-
-import static com.miyuki.mrpc.core.common.constants.RpcConstants.MAGIC_NUMBER;
 
 /**
  * Created with IntelliJ IDEA.

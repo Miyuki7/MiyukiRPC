@@ -1,4 +1,4 @@
-package com.miyuki.mrpc.core.common.config;
+package com.miyuki.mrpc.core.config;
 import lombok.*;
 
 /**

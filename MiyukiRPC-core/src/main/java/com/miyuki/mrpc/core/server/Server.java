@@ -1,6 +1,6 @@
 package com.miyuki.mrpc.core.server;
 
-import com.miyuki.mrpc.core.common.config.ServerConfig;
+import com.miyuki.mrpc.core.config.ServerConfig;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
@@ -8,8 +8,6 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-
-import java.util.logging.Logger;
 
 /**
  * Created with IntelliJ IDEA.

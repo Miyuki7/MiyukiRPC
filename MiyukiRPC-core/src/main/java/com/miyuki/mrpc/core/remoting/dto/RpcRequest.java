@@ -1,4 +1,4 @@
-package com.miyuki.mrpc.core.common;
+package com.miyuki.mrpc.core.remoting.dto;
 
 import lombok.*;
 
