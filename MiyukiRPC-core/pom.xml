@@ -22,6 +22,7 @@
         <curator.version>2.12.0</curator.version>
         <hessian.version>4.0.62</hessian.version>
         <kryo.version>3.0.3</kryo.version>
+        <protostuff.version>1.7.2</protostuff.version>
     </properties>
     <dependencies>
         <!-- lombok -->
@@ -34,6 +35,17 @@
             <groupId>com.miyuki</groupId>
             <artifactId>MiyukiRPC-interface</artifactId>
             <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <!-- protostuff -->
+        <dependency>
+            <groupId>io.protostuff</groupId>
+            <artifactId>protostuff-core</artifactId>
+            <version>${protostuff.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.protostuff</groupId>
+            <artifactId>protostuff-runtime</artifactId>
+            <version>${protostuff.version}</version>
         </dependency>
         <dependency>
             <groupId>com.esotericsoftware</groupId>
