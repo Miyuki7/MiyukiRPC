@@ -1,6 +1,5 @@
 package com.miyuki.mrpc.core.remoting.constants;
 
-
 /**
  * Created with IntelliJ IDEA.
  *
@@ -16,6 +15,7 @@ public class RpcConstants {
     public static final byte HEARTBEAT_RESPONSE_TYPE = 4;
     //协议版本号
     public static final byte VERSION = 1;
+    public static final byte TOTAL_LENGTH = 16;
     public static final byte[] MAGIC_NUMBER = {(byte) 'm', (byte) 'r', (byte) 'p', (byte) 'c'};
 
     //协议头部长度
