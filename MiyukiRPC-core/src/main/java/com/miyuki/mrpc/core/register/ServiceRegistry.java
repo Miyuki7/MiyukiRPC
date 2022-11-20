@@ -1,5 +1,7 @@
 package com.miyuki.mrpc.core.register;
 
+import com.miyuki.mrpc.core.config.RpcServiceConfig;
+
 import java.net.InetSocketAddress;
 
 /**
@@ -14,8 +16,8 @@ public interface ServiceRegistry {
     /**
      * register service
      *
-     * @param rpcServiceName    rpc service name
+     * @param rpcServiceConfig    rpcserviceConfig
      * @param inetSocketAddress service address
      */
-    void registerService(String rpcServiceName, InetSocketAddress inetSocketAddress);
+    void registerService(InetSocketAddress inetSocketAddress, RpcServiceConfig rpcServiceConfig);
 }

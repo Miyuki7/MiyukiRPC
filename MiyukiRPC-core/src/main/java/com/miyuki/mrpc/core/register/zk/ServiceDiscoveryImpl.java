@@ -4,8 +4,12 @@ import com.miyuki.mrpc.core.common.enums.RpcErrorMessageEnum;
 import com.miyuki.mrpc.core.common.exception.RpcException;
 import com.miyuki.mrpc.core.common.extension.ExtensionLoader;
 import com.miyuki.mrpc.core.common.factory.SingletonFactory;
+import com.miyuki.mrpc.core.common.utils.StringUtil;
 import com.miyuki.mrpc.core.config.RpcServiceConfig;
+import com.miyuki.mrpc.core.filter.ClientFilter;
 import com.miyuki.mrpc.core.filter.client.ClientFilterChain;
+import com.miyuki.mrpc.core.filter.client.PermitInvokeFilterImpl;
+import com.miyuki.mrpc.core.loadbalance.LoadBalance;
 import com.miyuki.mrpc.core.register.ServiceDiscovery;
 import com.miyuki.mrpc.core.remoting.dto.RpcRequest;
 import org.apache.curator.framework.CuratorFramework;
@@ -22,7 +26,7 @@ import static com.miyuki.mrpc.core.common.cache.CommonServerCache.SERVER_CONFIG;
  *
  * @Author: miyuki
  * @Date: 2022/11
- * @Description:
+ * @Description: 客户端使用的服务发现
  */
 public class ServiceDiscoveryImpl implements ServiceDiscovery {
     private final LoadBalance balance;
@@ -40,9 +44,27 @@ public class ServiceDiscoveryImpl implements ServiceDiscovery {
         if (serviceProviderList.isEmpty()) {
             throw new RpcException(RpcErrorMessageEnum.SERVICE_CAN_NOT_BE_FOUND, rpcServiceName);
         } else {
-            //路由
+            //客户端过滤器链
             ClientFilterChain clientFilterChain = SingletonFactory.getInstance(ClientFilterChain.class);
+            ExtensionLoader<ClientFilter> extensionLoader = ExtensionLoader.getExtensionLoader(ClientFilter.class);
+            PermitInvokeFilterImpl permitInvokeFilterImpl = (PermitInvokeFilterImpl) extensionLoader.getExtension("permitInvokeFilterImpl");
 
+            extensionLoader = ExtensionLoader.getExtensionLoader(ClientFilter.class);
+            ClientFilter directInvokeFilterImpl = extensionLoader.getExtension("directInvokeFilterImpl");
+
+            clientFilterChain.addClientFilter(directInvokeFilterImpl);
+            clientFilterChain.addClientFilter(permitInvokeFilterImpl);
+
+            clientFilterChain.doFilter(serviceProviderList,rpcServiceConfig);
+            //负载均衡，选择具体的路由
+            String targetServiceUrl = balance.selectServiceAddress(serviceProviderList,rpcRequest);
+            if (StringUtil.isEmpty(targetServiceUrl)){
+                throw new RpcException(RpcErrorMessageEnum.SERVICE_CAN_NOT_BE_FOUND,rpcServiceName);
+            }
+            String[] socketAddressArray = targetServiceUrl.split(":");
+            String host = socketAddressArray[0];
+            int port = Integer.parseInt(socketAddressArray[1]);
+            return new InetSocketAddress(host,port);
         }
 
     }
