@@ -1,5 +1,6 @@
 package com.miyuki.mrpc.core.remoting.transport;
 
+import com.miyuki.mrpc.core.config.RpcServiceConfig;
 import com.miyuki.mrpc.core.remoting.dto.RpcRequest;
 
 /**
@@ -16,5 +17,5 @@ public interface RpcRequestTransport {
      * @param rpcRequest message body
      * @return data from server
      */
-    Object sendRpcRequest(RpcRequest rpcRequest);
+    Object sendRpcRequest(RpcRequest rpcRequest, RpcServiceConfig rpcServiceConfig);
 }
