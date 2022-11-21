@@ -1,5 +1,7 @@
 package com.miyuki.mrpc.core.remoting.transport.netty.client;
-import com.miyuki.mrpc.core.remoting.transport.*;
+import com.miyuki.mrpc.core.remoting.dto.RpcProtocol;
+import com.miyuki.mrpc.core.remoting.transport.RpcRequestTransport;
+import com.miyuki.mrpc.core.remoting.transport.netty.codec.*;
 import com.miyuki.mrpc.core.common.enums.CompressTypeEnum;
 import com.miyuki.mrpc.core.common.enums.RpcErrorMessageEnum;
 import com.miyuki.mrpc.core.common.enums.SerializationTypeEnum;
@@ -11,6 +13,7 @@ import com.miyuki.mrpc.core.register.zk.ServiceDiscoveryImpl;
 import com.miyuki.mrpc.core.remoting.constants.RpcConstants;
 import com.miyuki.mrpc.core.remoting.dto.RpcRequest;
 import com.miyuki.mrpc.core.remoting.dto.RpcResponse;
+import com.miyuki.mrpc.core.remoting.transport.RpcRequestTransport;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -59,8 +62,8 @@ public class NettyRpcClient implements RpcRequestTransport {
                     protected void initChannel(NioSocketChannel nioSocketChannel) throws Exception {
                         ChannelPipeline pipeline = nioSocketChannel.pipeline();
                         pipeline.addLast(new IdleStateHandler(0,5,0, TimeUnit.SECONDS));
-                        pipeline.addLast(new RpcMessageEncoder());
-                        pipeline.addLast(new RpcMessageDecoder());
+                        pipeline.addLast(new RpcEncoder());
+                        pipeline.addLast(new RpcDecoder());
                         pipeline.addLast(new NettyRpcClientHandler());
                     }
                 });
@@ -125,7 +128,7 @@ public class NettyRpcClient implements RpcRequestTransport {
         if (channel.isActive()){
             unprocessedRequests.put(rpcRequest.getRequestId(),resultFuture); // client 收到 server 发来的 response 后，在回调函数中取出 resultFuture
 
-            RpcMessage rpcMessage = RpcMessage.builder().data(rpcRequest)
+            RpcProtocol rpcMessage = RpcProtocol.builder().data(rpcRequest)
                     .codec(SerializationTypeEnum.KYRO.getCode())
                     .compress(CompressTypeEnum.GZIP.getCode())
                     .messageType(RpcConstants.REQUEST_TYPE)
