@@ -6,7 +6,7 @@ import com.miyuki.mrpc.core.common.factory.SpringBeanFactory;
 import com.miyuki.mrpc.core.common.semaphore.SemaphoreHolder;
 import com.miyuki.mrpc.core.filter.ServerFilter;
 import com.miyuki.mrpc.core.remoting.dto.RpcRequest;
-import com.miyuki.mrpc.core.remoting.transport.netty.server.Server;
+import com.miyuki.mrpc.core.remoting.transport.netty.server.NettyRpcServer;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Map;
@@ -22,12 +22,12 @@ import java.util.concurrent.Semaphore;
 @Slf4j
 public class ServerServiceBeforeLimitFilterImpl implements ServerFilter {
 
-    private Server nettyRpcServer;
+    private NettyRpcServer nettyRpcServer;
 
     @Override
     public void doFilter(RpcRequest rpcRequest) {
         if (nettyRpcServer == null){
-            nettyRpcServer = SpringBeanFactory.getBean(Server.class);
+            nettyRpcServer = SpringBeanFactory.getBean(NettyRpcServer.class);
         }
         String serviceName = rpcRequest.getRpcServiceName();
 

@@ -6,7 +6,7 @@ import com.miyuki.mrpc.core.common.factory.SpringBeanFactory;
 import com.miyuki.mrpc.core.common.utils.StringUtil;
 import com.miyuki.mrpc.core.filter.ServerFilter;
 import com.miyuki.mrpc.core.remoting.dto.RpcRequest;
-import com.miyuki.mrpc.core.remoting.transport.netty.server.Server;
+import com.miyuki.mrpc.core.remoting.transport.netty.server.NettyRpcServer;
 
 /**
  * Created with IntelliJ IDEA.
@@ -17,12 +17,12 @@ import com.miyuki.mrpc.core.remoting.transport.netty.server.Server;
  */
 public class ServerTokenFilterImpl implements ServerFilter {
 
-    private Server nettyRpcServer;
+    private NettyRpcServer nettyRpcServer;
 
     @Override
     public void doFilter(RpcRequest rpcRequest) {
         if (nettyRpcServer == null){
-            nettyRpcServer = SpringBeanFactory.getBean(Server.class);
+            nettyRpcServer = SpringBeanFactory.getBean(NettyRpcServer.class);
         }
 
 

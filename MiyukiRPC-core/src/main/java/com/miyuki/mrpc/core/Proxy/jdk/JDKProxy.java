@@ -8,6 +8,7 @@ import com.miyuki.mrpc.core.config.RpcServiceConfig;
 import com.miyuki.mrpc.core.remoting.constants.RpcConstants;
 import com.miyuki.mrpc.core.remoting.dto.RpcRequest;
 import com.miyuki.mrpc.core.remoting.dto.RpcResponse;
+import com.miyuki.mrpc.core.remoting.transport.RpcRequestTransport;
 import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.InvocationHandler;
@@ -32,7 +33,7 @@ public class JDKProxy implements InvocationHandler, ProxyFactory {
 
     private final AtomicInteger retryTime = new AtomicInteger(RpcConstants.MAX_RECONNECTION_TIMES);
 
-    public RpcClientProxy(RpcServiceConfig rpcServiceConfig, RpcRequestTransport rpcRequestTransport){
+    public JDKProxy(RpcServiceConfig rpcServiceConfig, RpcRequestTransport rpcRequestTransport){
         this.rpcRequestTransport = rpcRequestTransport;
         this.rpcServiceConfig = rpcServiceConfig;
     }
