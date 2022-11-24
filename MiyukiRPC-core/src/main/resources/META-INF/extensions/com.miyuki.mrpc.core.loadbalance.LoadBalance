@@ -1,0 +1,2 @@
+randomBalancer=com.miyuki.mrpc.core.loadbalance.balancer.RandomBalancer
+consistentHashLoadBalance=com.miyuki.mrpc.core.loadbalance.balancer.ConsistentHashLoadBalance

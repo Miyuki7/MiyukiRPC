@@ -1,0 +1,3 @@
+serverTokenFilter=com.miyuki.core.mrpc.filter.server.ServerTokenFilterImpl
+serverServiceBeforeLimitFilterImpl=com.miyuki.core.mrpc.filter.server.ServerServiceBeforeLimitFilterImpl
+serverServiceAfterLimitFilterImpl=com.miyuki.core.mrpc.filter.server.ServerServiceAfterLimitFilterImpl

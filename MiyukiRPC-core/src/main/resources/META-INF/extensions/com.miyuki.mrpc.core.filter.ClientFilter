@@ -1,0 +1,2 @@
+permitInvokerFilterImpl=com.miyuki.mrpc.core.filter.client.PermitInvokeFilterImpl
+directInvokeFilterImpl=com.miyuki.mrpc.core.filter.client.DirectInvokeFilterImpl

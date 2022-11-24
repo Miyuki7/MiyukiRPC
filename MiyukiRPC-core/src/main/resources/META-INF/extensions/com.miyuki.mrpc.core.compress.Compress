@@ -1,0 +1,1 @@
+gzip=com.miyuki.mrpc.core.compress.zip.GzipCompress
